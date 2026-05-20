@@ -1,0 +1,31 @@
+# Dependencias
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Variables de entorno y secretos
+.env
+.env.local
+*.key
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores e IDEs
+.vscode/
+.idea/
+*.swp
+
+# Caché y temporales
+.cache/
+tmp/
+temp/
+
+# Backups de editores
+*.save
+*.bak
+*~
