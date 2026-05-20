@@ -1,0 +1,506 @@
+/* ============================================================
+   VITALIE — Estilos principales
+   Orden: reset → variables → globales → secciones → media queries
+   ============================================================ */
+
+/* ── 1. RESET Y BASE ─────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--verde-oscuro);
+  background-color: var(--blanco-hueso);
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  line-height: 1.2;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── 2. VARIABLES DE DISEÑO ──────────────────────────────── */
+:root {
+  /* Paleta oficial */
+  --verde-bosque: #2D5F3F;
+  --verde-salvia: #87A878;
+  --dorado:       #C9A961;
+  --crema:        #F5F1E8;
+  --blanco-hueso: #FAF8F3;
+  --verde-oscuro: #1A3A28;
+  --gris-suave:   #6B7268;
+
+  /* Espaciado */
+  --espacio-xs:  0.5rem;
+  --espacio-sm:  1rem;
+  --espacio-md:  2rem;
+  --espacio-lg:  3rem;
+  --espacio-xl:  5rem;
+
+  /* Bordes y sombras */
+  --radio-sm:    6px;
+  --radio-md:    12px;
+  --sombra-sm:   0 2px 8px rgba(45, 95, 63, 0.08);
+  --sombra-md:   0 4px 20px rgba(45, 95, 63, 0.12);
+
+  /* Transicion global */
+  --transicion:  200ms ease;
+}
+
+/* ── 3. COMPONENTES GLOBALES ─────────────────────────────── */
+
+/* Contenedor centrado con padding lateral */
+.contenedor {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--espacio-sm);
+}
+
+/* Títulos de sección */
+.seccion-titulo {
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  color: var(--verde-bosque);
+  text-align: center;
+  margin-bottom: var(--espacio-sm);
+}
+
+/* Subtítulo de sección (debajo del título principal) */
+.seccion-subtitulo {
+  text-align: center;
+  color: var(--gris-suave);
+  font-size: 1rem;
+  margin-bottom: var(--espacio-md);
+}
+
+/* Botón WhatsApp — aparece en hero, tarjetas y footer */
+.boton-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-xs);
+  background-color: var(--dorado);
+  color: var(--verde-oscuro);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radio-md);
+  transition: background-color var(--transicion), transform var(--transicion), box-shadow var(--transicion);
+}
+
+.boton-whatsapp:hover,
+.boton-whatsapp:focus-visible {
+  background-color: var(--verde-salvia);
+  color: var(--blanco-hueso);
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-md);
+}
+
+/* Variante grande para el hero */
+.boton-grande {
+  font-size: 1.05rem;
+  padding: 0.85rem 2rem;
+}
+
+/* ── 4. HEADER ───────────────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--crema);
+  border-bottom: 1px solid rgba(45, 95, 63, 0.1);
+  box-shadow: var(--sombra-sm);
+}
+
+.header-contenido {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding: 0.9rem var(--espacio-sm);
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.logo-texto {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--verde-bosque);
+  letter-spacing: -0.02em;
+}
+
+.logo-eslogan {
+  font-size: 0.65rem;
+  font-weight: 300;
+  color: var(--gris-suave);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Navegación */
+.nav-lista {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-md);
+}
+
+.nav-lista a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--verde-oscuro);
+  transition: color var(--transicion);
+}
+
+.nav-lista a:hover {
+  color: var(--verde-bosque);
+}
+
+/* CTA de nav (botón WhatsApp pequeño en la barra) */
+.nav-cta {
+  background-color: var(--dorado);
+  color: var(--verde-oscuro) !important;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radio-sm);
+  font-weight: 600 !important;
+  transition: background-color var(--transicion), transform var(--transicion) !important;
+}
+
+.nav-cta:hover {
+  background-color: var(--verde-salvia);
+  color: var(--blanco-hueso) !important;
+  transform: translateY(-1px);
+}
+
+/* En móvil, ocultar los enlaces de nav excepto el CTA */
+.nav-lista li:not(:last-child) {
+  display: none;
+}
+
+/* ── 5. HERO ─────────────────────────────────────────────── */
+.seccion-hero {
+  background: linear-gradient(160deg, var(--crema) 0%, var(--blanco-hueso) 100%);
+  padding: var(--espacio-xl) var(--espacio-sm);
+  text-align: center;
+}
+
+.hero-contenido {
+  max-width: 680px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-md);
+}
+
+.hero-titulo {
+  font-size: clamp(2rem, 7vw, 3.4rem);
+  color: var(--verde-bosque);
+  font-weight: 700;
+}
+
+.hero-subtitulo {
+  font-size: clamp(1rem, 3vw, 1.15rem);
+  color: var(--gris-suave);
+  max-width: 520px;
+}
+
+/* ── 6. SOBRE VITALIE ────────────────────────────────────── */
+.seccion-sobre {
+  background-color: var(--blanco-hueso);
+  padding: var(--espacio-lg) var(--espacio-sm);
+}
+
+.sobre-texto {
+  max-width: 720px;
+  margin-inline: auto;
+  text-align: center;
+  color: var(--gris-suave);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+/* ── 7. PRODUCTOS DESTACADOS ─────────────────────────────── */
+.seccion-productos {
+  background-color: var(--crema);
+  padding: var(--espacio-lg) var(--espacio-sm);
+}
+
+/* Grid: 1 columna en mobile */
+.productos-grilla {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espacio-md);
+}
+
+/* Tarjeta individual */
+.tarjeta-producto {
+  background-color: var(--blanco-hueso);
+  border-radius: var(--radio-md);
+  box-shadow: var(--sombra-sm);
+  overflow: hidden;
+  transition: transform var(--transicion), box-shadow var(--transicion);
+  display: flex;
+  flex-direction: column;
+}
+
+.tarjeta-producto:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-md);
+}
+
+.tarjeta-imagen img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.tarjeta-cuerpo {
+  padding: var(--espacio-sm) var(--espacio-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-xs);
+  flex: 1;
+}
+
+.tarjeta-nombre {
+  font-size: 1.15rem;
+  color: var(--verde-bosque);
+}
+
+.tarjeta-descripcion {
+  font-size: 0.9rem;
+  color: var(--gris-suave);
+  line-height: 1.5;
+}
+
+.tarjeta-precio {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--verde-oscuro);
+  margin-top: auto;
+  padding-top: var(--espacio-xs);
+}
+
+/* El botón de la tarjeta ocupa todo el ancho disponible */
+.tarjeta-cuerpo .boton-whatsapp {
+  justify-content: center;
+  width: 100%;
+  margin-top: var(--espacio-xs);
+}
+
+/* ── 8. BENEFICIOS ───────────────────────────────────────── */
+.seccion-beneficios {
+  background-color: var(--blanco-hueso);
+  padding: var(--espacio-lg) var(--espacio-sm);
+}
+
+/* Grid: 1 columna en mobile */
+.beneficios-grilla {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espacio-md);
+  margin-top: var(--espacio-md);
+}
+
+.beneficio-tarjeta {
+  text-align: center;
+  padding: var(--espacio-md);
+  border-radius: var(--radio-md);
+  background-color: var(--crema);
+  box-shadow: var(--sombra-sm);
+  transition: transform var(--transicion);
+}
+
+.beneficio-tarjeta:hover {
+  transform: translateY(-3px);
+}
+
+.beneficio-icono {
+  font-size: 2.4rem;
+  margin-bottom: var(--espacio-xs);
+}
+
+.beneficio-titulo {
+  font-size: 1.1rem;
+  color: var(--verde-bosque);
+  margin-bottom: var(--espacio-xs);
+}
+
+.beneficio-descripcion {
+  font-size: 0.9rem;
+  color: var(--gris-suave);
+  line-height: 1.6;
+}
+
+/* ── 9. FOOTER ───────────────────────────────────────────── */
+.site-footer {
+  background-color: var(--verde-oscuro);
+  color: var(--crema);
+  padding: var(--espacio-lg) var(--espacio-sm);
+}
+
+.footer-contenido {
+  max-width: 1200px;
+  margin-inline: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-xs);
+}
+
+.footer-marca {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--crema);
+}
+
+.footer-copy {
+  font-size: 0.8rem;
+  color: var(--verde-salvia);
+}
+
+.footer-contacto {
+  font-size: 0.9rem;
+  color: var(--crema);
+  margin-top: var(--espacio-xs);
+}
+
+.footer-numero {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--dorado);
+  transition: color var(--transicion);
+}
+
+.footer-numero:hover {
+  color: var(--verde-salvia);
+}
+
+/* ── 10. BOTÓN FLOTANTE DE WHATSAPP ─────────────────────── */
+
+/* Animación de pulso para llamar la atención */
+@keyframes pulso {
+  0%   { box-shadow: 0 0 0 0 rgba(201, 169, 97, 0.5); }
+  70%  { box-shadow: 0 0 0 12px rgba(201, 169, 97, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(201, 169, 97, 0); }
+}
+
+.boton-flotante-whatsapp {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: var(--dorado);
+  color: var(--verde-oscuro);
+  border-radius: 50%;
+  box-shadow: var(--sombra-md);
+  animation: pulso 2.5s ease-in-out infinite;
+  transition: background-color var(--transicion), transform var(--transicion);
+}
+
+.boton-flotante-whatsapp:hover,
+.boton-flotante-whatsapp:focus-visible {
+  background-color: var(--verde-bosque);
+  color: var(--blanco-hueso);
+  transform: scale(1.1);
+  animation: none;
+}
+
+/* ── 11. MEDIA QUERIES ───────────────────────────────────── */
+
+/* Tablet: 768px y arriba */
+@media (min-width: 768px) {
+  .contenedor {
+    padding-inline: var(--espacio-md);
+  }
+
+  /* Nav: mostrar todos los enlaces */
+  .nav-lista li:not(:last-child) {
+    display: list-item;
+  }
+
+  .header-contenido {
+    padding: 1rem var(--espacio-md);
+  }
+
+  /* Productos: 2 columnas */
+  .productos-grilla {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Beneficios: 3 columnas */
+  .beneficios-grilla {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sobre-texto {
+    font-size: 1.1rem;
+  }
+}
+
+/* Desktop: 1024px y arriba */
+@media (min-width: 1024px) {
+  .contenedor {
+    padding-inline: var(--espacio-lg);
+  }
+
+  /* Productos: 4 columnas */
+  .productos-grilla {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .seccion-hero {
+    padding-block: 8rem;
+  }
+
+  .seccion-sobre,
+  .seccion-productos,
+  .seccion-beneficios {
+    padding-block: var(--espacio-xl);
+  }
+}
