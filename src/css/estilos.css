@@ -425,6 +425,14 @@ ul {
   transform: scale(0.97);
 }
 
+/* Hover de la tarjeta: se eleva y crece levemente con sombra marcada.
+   Regla global (fuera de media queries) para que aplique siempre. */
+.tarjeta-producto:hover {
+  transform: translateY(-12px) scale(1.02) !important;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.20) !important;
+  cursor: pointer;
+}
+
 .tarjeta-imagen img {
   width: 100%;
   height: 220px;
@@ -608,16 +616,6 @@ ul {
   /* Productos: 2 columnas */
   .productos-grilla {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  /* Zoom al hacer hover sobre la tarjeta completa (solo desktop) */
-  .tarjeta-producto {
-    transition: transform 250ms ease, box-shadow 250ms ease;
-  }
-
-  .tarjeta-producto:hover {
-    transform: scale(1.03) translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
   }
 
   /* Beneficios: 3 columnas */
