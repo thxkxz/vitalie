@@ -119,7 +119,6 @@ ul {
   transition: background-color var(--transicion), transform var(--transicion), box-shadow var(--transicion);
 }
 
-.boton-whatsapp:hover,
 .boton-whatsapp:focus-visible {
   background-color: var(--verde-salvia);
   color: var(--blanco-hueso);
@@ -127,10 +126,39 @@ ul {
   box-shadow: var(--sombra-md);
 }
 
+/* Hover solo en dispositivos con puntero real: en táctil el hover se "pega" */
+@media (hover: hover) and (pointer: fine) {
+  .boton-whatsapp:hover {
+    background-color: var(--verde-salvia);
+    color: var(--blanco-hueso);
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-md);
+  }
+}
+
+/* Efecto de presión al tocar en móvil */
+.boton-whatsapp:active {
+  transform: scale(0.97);
+  box-shadow: var(--sombra-sm);
+}
+
 /* Variante grande para el hero */
 .boton-grande {
   font-size: 1.05rem;
   padding: 0.85rem 2rem;
+}
+
+/* Scroll reveal: estado inicial (lo añade main.js) y estado revelado.
+   Si el JS no corre, las secciones nunca reciben .seccion-oculta y se ven normal. */
+.seccion-oculta {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.seccion-visible {
+  opacity: 1;
+  transform: none;
 }
 
 /* ── 4. HEADER ───────────────────────────────────────────── */
@@ -193,6 +221,26 @@ ul {
   color: var(--verde-bosque);
 }
 
+/* Subrayado animado que crece al hacer hover (excluye el CTA) */
+.nav-lista a:not(.nav-cta) {
+  position: relative;
+}
+
+.nav-lista a:not(.nav-cta)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: var(--verde-bosque);
+  transition: width var(--transicion);
+}
+
+.nav-lista a:not(.nav-cta):hover::after {
+  width: 100%;
+}
+
 /* CTA de nav (botón WhatsApp pequeño en la barra) */
 .nav-cta {
   background-color: var(--dorado);
@@ -209,9 +257,86 @@ ul {
   transform: translateY(-1px);
 }
 
-/* En móvil, ocultar los enlaces de nav excepto el CTA */
-.nav-lista li:not(:last-child) {
+/* Botón hamburguesa: oculto por defecto, visible solo en móvil.
+   Lo inyecta main.js, así no tocamos el HTML (mejora progresiva). */
+.nav-toggle {
   display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-toggle-linea {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--verde-bosque);
+  border-radius: 2px;
+  transition: transform 250ms ease, opacity 250ms ease;
+}
+
+/* ── Navegación móvil: menú hamburguesa (solo < 768px) ──── */
+@media (max-width: 767px) {
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  /* Las 3 líneas se cruzan en "X" cuando el menú está abierto */
+  .nav-principal.nav-abierto .nav-toggle-linea:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-principal.nav-abierto .nav-toggle-linea:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-principal.nav-abierto .nav-toggle-linea:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* La lista se convierte en panel desplegable bajo el header */
+  .nav-lista {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background-color: var(--crema);
+    border-bottom: 1px solid rgba(45, 95, 63, 0.1);
+    box-shadow: var(--sombra-md);
+    padding: var(--espacio-xs) var(--espacio-sm);
+    display: none;
+  }
+
+  .nav-principal.nav-abierto .nav-lista {
+    display: flex;
+  }
+
+  .nav-lista li {
+    width: 100%;
+  }
+
+  /* Buen área táctil para cada enlace del panel */
+  .nav-lista li:not(:last-child) a {
+    display: block;
+    padding: 0.85rem var(--espacio-xs);
+  }
+
+  /* El CTA de WhatsApp como botón pleno dentro del panel */
+  .nav-cta {
+    display: block;
+    text-align: center;
+    margin-top: var(--espacio-xs);
+    padding: 0.85rem 1rem;
+  }
 }
 
 /* ── 5. HERO ─────────────────────────────────────────────── */
@@ -230,10 +355,23 @@ ul {
   gap: var(--espacio-md);
 }
 
+/* Aparición suave del título al cargar la página */
+@keyframes aparecer-hero {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .hero-titulo {
   font-size: clamp(2rem, 7vw, 3.4rem);
   color: var(--verde-bosque);
   font-weight: 700;
+  animation: aparecer-hero 800ms ease-out both;
 }
 
 .hero-subtitulo {
@@ -276,14 +414,22 @@ ul {
   border-radius: var(--radio-md);
   box-shadow: var(--sombra-sm);
   overflow: hidden;
-  transition: transform var(--transicion), box-shadow var(--transicion);
+  transition: transform 150ms ease, box-shadow var(--transicion);
   display: flex;
   flex-direction: column;
 }
 
-.tarjeta-producto:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--sombra-md);
+/* Hover (elevar + escalar) solo con puntero real: en táctil no queremos hover */
+@media (hover: hover) and (pointer: fine) {
+  .tarjeta-producto:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--sombra-md);
+  }
+}
+
+/* Feedback al tocar en móvil: la tarjeta se hunde levemente (150ms) */
+.tarjeta-producto:active {
+  transform: scale(0.97);
 }
 
 .tarjeta-imagen img {
@@ -435,6 +581,9 @@ ul {
   justify-content: center;
   width: 3.5rem;
   height: 3.5rem;
+  /* Mínimo 56px en móvil para que sea fácil de tocar (área táctil cómoda) */
+  min-width: 56px;
+  min-height: 56px;
   background-color: var(--dorado);
   color: var(--verde-oscuro);
   border-radius: 50%;
@@ -457,11 +606,6 @@ ul {
 @media (min-width: 768px) {
   .contenedor {
     padding-inline: var(--espacio-md);
-  }
-
-  /* Nav: mostrar todos los enlaces */
-  .nav-lista li:not(:last-child) {
-    display: list-item;
   }
 
   .header-contenido {
@@ -502,5 +646,47 @@ ul {
   .seccion-productos,
   .seccion-beneficios {
     padding-block: var(--espacio-xl);
+  }
+}
+
+/* ── Móvil: animaciones cortas (máx 300ms) para no frustrar ── */
+@media (max-width: 767px) {
+  .seccion-oculta {
+    transition: opacity 300ms ease, transform 300ms ease;
+  }
+
+  .hero-titulo {
+    animation-duration: 300ms;
+  }
+}
+
+/* ── 12. ACCESIBILIDAD: MOVIMIENTO REDUCIDO ──────────────── */
+/* Respeta a quienes prefieren menos animación (mareos, vestibular, etc.) */
+@media (prefers-reduced-motion: reduce) {
+  .seccion-oculta {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hero-titulo {
+    animation: none;
+  }
+
+  .boton-flotante-whatsapp {
+    animation: none;
+  }
+
+  .tarjeta-producto:hover,
+  .tarjeta-producto:active,
+  .boton-whatsapp:active {
+    transform: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
