@@ -419,15 +419,8 @@ ul {
   flex-direction: column;
 }
 
-/* Hover (elevar + escalar) solo con puntero real: en táctil no queremos hover */
-@media (hover: hover) and (pointer: fine) {
-  .tarjeta-producto:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: var(--sombra-md);
-  }
-}
-
-/* Feedback al tocar en móvil: la tarjeta se hunde levemente (150ms) */
+/* Feedback al tocar en móvil: la tarjeta se hunde levemente (150ms).
+   El zoom de hover para desktop está en el media query de 768px. */
 .tarjeta-producto:active {
   transform: scale(0.97);
 }
@@ -615,6 +608,16 @@ ul {
   /* Productos: 2 columnas */
   .productos-grilla {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Zoom al hacer hover sobre la tarjeta completa (solo desktop) */
+  .tarjeta-producto {
+    transition: transform 250ms ease, box-shadow 250ms ease;
+  }
+
+  .tarjeta-producto:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 32px rgba(45, 95, 63, 0.18);
   }
 
   /* Beneficios: 3 columnas */
